@@ -14,6 +14,39 @@ const Game: FC<GameProps> = () => {
     setMatrix(gameClass?.matrix);
   }, [gameClass]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => onKeyPress(e))
+  }, []);
+
+  const onKeyPress = (e: KeyboardEvent) => {
+    e.preventDefault();
+    if (!e.key) return;
+
+    const key = e.key.toLowerCase();
+    console.log(key);
+    
+    switch (key) {
+      case "arrowup":
+      case "w":
+        moveHandler(Moves.TOP);
+        break;
+      case "arrowdown":
+      case "s":
+        moveHandler(Moves.BOTTOM);
+        break;
+      case "arrowleft":
+      case "a":
+        moveHandler(Moves.LEFT);
+        break;
+      case "arrowright":
+      case "d":
+        moveHandler(Moves.RIGHT);
+        break;
+      default:
+        break;
+    }
+  }
+
   const moveHandler = (dir: Moves) => {
     switch (dir) {
       case Moves.TOP:
@@ -34,7 +67,6 @@ const Game: FC<GameProps> = () => {
 
     setMatrix(gameClass?.matrix);
   };
-  
 
   return (
     <div>
